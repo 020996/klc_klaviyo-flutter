@@ -1,0 +1,84 @@
+PODS:
+  - AnyCodable-FlightSchool (0.6.7)
+  - Firebase/CoreOnly (12.6.0):
+    - FirebaseCore (~> 12.6.0)
+  - firebase_core (4.3.0):
+    - Firebase/CoreOnly (= 12.6.0)
+    - Flutter
+  - FirebaseCore (12.6.0):
+    - FirebaseCoreInternal (~> 12.6.0)
+    - GoogleUtilities/Environment (~> 8.1)
+    - GoogleUtilities/Logger (~> 8.1)
+  - FirebaseCoreInternal (12.6.0):
+    - "GoogleUtilities/NSData+zlib (~> 8.1)"
+  - Flutter (1.0.0)
+  - GoogleUtilities/Environment (8.1.0):
+    - GoogleUtilities/Privacy
+  - GoogleUtilities/Logger (8.1.0):
+    - GoogleUtilities/Environment
+    - GoogleUtilities/Privacy
+  - "GoogleUtilities/NSData+zlib (8.1.0)":
+    - GoogleUtilities/Privacy
+  - GoogleUtilities/Privacy (8.1.0)
+  - integration_test (0.0.1):
+    - Flutter
+  - KlaviyoCore (5.1.1):
+    - AnyCodable-FlightSchool
+  - KlaviyoForms (5.1.1):
+    - KlaviyoSwift (~> 5.1.1)
+  - KlaviyoSwift (5.1.1):
+    - AnyCodable-FlightSchool
+    - KlaviyoCore (~> 5.1.1)
+  - KlaviyoSwiftExtension (5.1.1)
+  - klc_klaviyo_flutter (0.0.1):
+    - Flutter
+    - KlaviyoForms (~> 5.1.1)
+    - KlaviyoSwift (~> 5.1.1)
+
+DEPENDENCIES:
+  - firebase_core (from `.symlinks/plugins/firebase_core/ios`)
+  - Flutter (from `Flutter`)
+  - integration_test (from `.symlinks/plugins/integration_test/ios`)
+  - KlaviyoSwiftExtension (~> 5.1.1)
+  - klc_klaviyo_flutter (from `.symlinks/plugins/klc_klaviyo_flutter/ios`)
+
+SPEC REPOS:
+  trunk:
+    - AnyCodable-FlightSchool
+    - Firebase
+    - FirebaseCore
+    - FirebaseCoreInternal
+    - GoogleUtilities
+    - KlaviyoCore
+    - KlaviyoForms
+    - KlaviyoSwift
+    - KlaviyoSwiftExtension
+
+EXTERNAL SOURCES:
+  firebase_core:
+    :path: ".symlinks/plugins/firebase_core/ios"
+  Flutter:
+    :path: Flutter
+  integration_test:
+    :path: ".symlinks/plugins/integration_test/ios"
+  klc_klaviyo_flutter:
+    :path: ".symlinks/plugins/klc_klaviyo_flutter/ios"
+
+SPEC CHECKSUMS:
+  AnyCodable-FlightSchool: 261cbe76757802b17d471b9059b21e6fa5edf57b
+  Firebase: a451a7b61536298fd5cbfe3a746fd40443a50679
+  firebase_core: ba00a168e719694f38960502ceb560285603d073
+  FirebaseCore: 0e38ad5d62d980a47a64b8e9301ffa311457be04
+  FirebaseCoreInternal: 69bf1306a05b8ac43004f6cc1f804bb7b05b229e
+  Flutter: cabc95a1d2626b1b06e7179b784ebcf0c0cde467
+  GoogleUtilities: 00c88b9a86066ef77f0da2fab05f65d7768ed8e1
+  integration_test: 4a889634ef21a45d28d50d622cf412dc6d9f586e
+  KlaviyoCore: e9d4df8526f16641526c28b8076644a403cb8e71
+  KlaviyoForms: 979e6ac85b06e7dcdd3241023ace83b18816b098
+  KlaviyoSwift: aa35a95149f94cf1c583e114bf18af982eddca1d
+  KlaviyoSwiftExtension: 311e81a7b272010de996676451de5e4b385ddd64
+  klc_klaviyo_flutter: 9a99102bebb1ce5c4c5d4f638b161659570a9e59
+
+PODFILE CHECKSUM: 819c1b2a36161e9200d2a2c633c8b5e996ddf0fa
+
+COCOAPODS: 1.16.2
