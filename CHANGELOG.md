@@ -12,3 +12,6 @@ Update: pubspec
 
 ## 0.0.5
 Update: Method forms ( Android )
+
+## 0.0.6
+Update: Readme.md

@@ -40,24 +40,24 @@ flutter pub get klc_klaviyo_flutter
 ## Android Setup
 
 
-### Step 1: Thêm JitPack Repository
+### Step 1: Add JitPack Repository
 
-Để tải được SDK Klaviyo, bạn cần thêm JitPack vào phần `repositories` trong file Gradle:
+To download the Klaviyo SDK, you need to add JitPack to the `repositories` section in your Gradle file:
 
-Mở file `android/build.gradle.kts` (hoặc `android/build.gradle`) và thêm dòng sau vào bên trong khối `repositories`:
+Open `android/build.gradle.kts` (or `android/build.gradle`) and add the following line inside the `repositories` block:
 
 ```kotlin
 maven { url = uri("https://jitpack.io") }
 ```
 
-Ví dụ:
+Example:
 
 ```kotlin
 allprojects {
   repositories {
     google()
     mavenCentral()
-    maven { url = uri("https://jitpack.io") } // Thêm dòng này
+    maven { url = uri("https://jitpack.io") } // Add this line
   }
 }
 ```
@@ -66,7 +66,7 @@ allprojects {
 
 #### Update `settings.gradle.kts`
 
-Open `android/settings.gradle.kts` và add the Google Services plugin at the top:
+Open `android/settings.gradle.kts` and add the Google Services plugin at the top:
 
 ```kotlin
 pluginManagement {
@@ -86,7 +86,7 @@ plugins {
 
 #### Update `build.gradle.kts`
 
-Open `android/app/build.gradle.kts` và apply the Google Services plugin at the bottom:
+Open `android/app/build.gradle.kts` and apply the Google Services plugin at the bottom:
 
 ```kotlin
 plugins {
@@ -94,7 +94,7 @@ plugins {
 }
 ```
 
-Open `android/app/settings.gradle.kts` và apply the Google Services plugin at the bottom:
+Open `android/app/settings.gradle.kts` and apply the Google Services plugin at the bottom:
 
 ```kotlin
 plugins {
