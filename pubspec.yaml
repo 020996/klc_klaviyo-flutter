@@ -1,7 +1,9 @@
 name: klc_klaviyo_flutter
-description: 'A new Flutter plugin project.'
-version: 0.0.1
-homepage:
+description: A Flutter plugin for integrating Klaviyo SDK into Flutter applications, enabling customer data tracking and marketing automation.
+version: 0.0.3
+homepage: https://github.com/020996/klc_klaviyo-flutter
+repository: https://github.com/020996/klc_klaviyo-flutter
+issue_tracker: https://github.com/020996/klc_klaviyo-flutter/issues
 
 environment:
   sdk: ^3.9.2
