@@ -11,6 +11,8 @@ import com.google.firebase.messaging.FirebaseMessaging
 import com.klaviyo.analytics.Klaviyo
 import com.klaviyo.analytics.model.Event
 import com.klaviyo.analytics.model.EventMetric
+import com.klaviyo.forms.registerForInAppForms
+import com.klaviyo.forms.unregisterFromInAppForms
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.embedding.engine.plugins.activity.ActivityAware
 import io.flutter.embedding.engine.plugins.activity.ActivityPluginBinding
@@ -249,13 +251,9 @@ class KlcKlaviyoFlutterPlugin: FlutterPlugin, MethodCallHandler, ActivityAware {
     private fun handleRegisterForInAppForms(result: Result) {
         Log.d(TAG, "📝 Registering for in-app forms...")
         try {
-            activity?.let { act ->
-                Handler(Looper.getMainLooper()).post {
-                    Klaviyo.registerForInAppForms(act)
-                    Log.d(TAG, "✅ Registered for in-app forms successfully")
-                }
-            } ?: run {
-                Log.w(TAG, "⚠️ Activity is null, cannot register for in-app forms")
+            Handler(Looper.getMainLooper()).post {
+                Klaviyo.registerForInAppForms()
+                Log.d(TAG, "✅ Registered for in-app forms successfully")
             }
             result.success(null)
         } catch (e: Exception) {
@@ -268,10 +266,8 @@ class KlcKlaviyoFlutterPlugin: FlutterPlugin, MethodCallHandler, ActivityAware {
     private fun handleUnregisterFromInAppForms(result: Result) {
         Log.d(TAG, "📝 Unregistering from in-app forms...")
         try {
-            Handler(Looper.getMainLooper()).post {
-                Klaviyo.unregisterFromInAppForms()
-                Log.d(TAG, "✅ Unregistered from in-app forms successfully")
-            }
+            Klaviyo.unregisterFromInAppForms()
+            Log.d(TAG, "✅ Unregistered from in-app forms successfully")
             result.success(null)
         } catch (e: Exception) {
             Log.e(TAG, "❌ Unregister from in-app forms error: ${e.message}")

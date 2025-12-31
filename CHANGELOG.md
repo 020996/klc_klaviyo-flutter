@@ -9,3 +9,6 @@ Update: description
 
 ## 0.0.4
 Update: pubspec
+
+## 0.0.5
+Update: Method forms ( Android )
