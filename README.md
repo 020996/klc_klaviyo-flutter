@@ -549,7 +549,7 @@ flutter pub get
 
 4. Verify extension deployment target ≤ app deployment target
 
-#### Build Phase Circular Dependency Error
+#### Build Phase Circular Dependency Error When use Extensions [text](https://github.com/flutter/flutter/issues/135056)
 
 Error: `Cycle inside Runner; building could produce unreliable results`
 

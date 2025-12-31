@@ -15,3 +15,6 @@ Update: Method forms ( Android )
 
 ## 0.0.6
 Update: Readme.md
+
+## 0.0.7
+Update: Readme.md
