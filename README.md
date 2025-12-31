@@ -307,7 +307,7 @@ pod install
 cd ..
 ```
 
-### Step 6: Fix Build Phase Ordering (If Needed)
+### Step 6: [Fix Build Phase Ordering](https://github.com/flutter/flutter/issues/135056)
 
 If you encounter a build error about circular dependencies:
 
@@ -548,16 +548,6 @@ flutter pub get
 3. Check `klaviyo_app_group` is in both Info.plist files
 
 4. Verify extension deployment target ≤ app deployment target
-
-#### Build Phase Circular Dependency Error When use Extensions [text](https://github.com/flutter/flutter/issues/135056)
-
-Error: `Cycle inside Runner; building could produce unreliable results`
-
-**Solution**:
-1. Xcode → Runner target → Build Phases
-2. Drag "Embed Foundation Extensions" **above** "Thin Binary"
-3. Clean build folder: **Product** → **Clean Build Folder** (Shift + Cmd + K)
-4. Rebuild
 
 #### Extension Deployment Target Error
 
