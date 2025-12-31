@@ -6,3 +6,6 @@ Update: change repository
 
 ## 0.0.3
 Update: description
+
+## 0.0.4
+Update: pubspec
