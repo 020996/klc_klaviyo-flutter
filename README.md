@@ -18,7 +18,6 @@ Complete guide for integrating the `klc_klaviyo_flutter` plugin into your Flutte
 ## Prerequisites
 
 Before you begin, ensure you have:
-
 - Flutter SDK installed (version 3.10.0 or higher)
 - A Klaviyo account with your Public API Key (Site ID)
 - For Android: Firebase project with `google-services.json`

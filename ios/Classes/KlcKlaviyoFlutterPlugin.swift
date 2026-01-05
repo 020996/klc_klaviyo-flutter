@@ -9,7 +9,6 @@ public class KlcKlaviyoFlutterPlugin: NSObject, FlutterPlugin, UNUserNotificatio
     private var channel: FlutterMethodChannel?
 
     public static func register(with registrar: FlutterPluginRegistrar) {
-        print("[KlcKlaviyoFlutterPlugin] register: Registering plugin")
         let channel = FlutterMethodChannel(
             name: "com.klaviyo.flutter/klaviyo_sdk",
             binaryMessenger: registrar.messenger()
@@ -21,9 +20,6 @@ public class KlcKlaviyoFlutterPlugin: NSObject, FlutterPlugin, UNUserNotificatio
 
         // Set as notification delegate to handle foreground notifications and taps
         UNUserNotificationCenter.current().delegate = instance
-        print("[KlcKlaviyoFlutterPlugin] register: Set as UNUserNotificationCenter delegate")
-
-        print("[KlcKlaviyoFlutterPlugin] register: Plugin registered successfully")
     }
     
     public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
@@ -52,20 +48,16 @@ public class KlcKlaviyoFlutterPlugin: NSObject, FlutterPlugin, UNUserNotificatio
         case "getPushPermissionStatus":
             handleGetPushPermissionStatus(result: result)
         case "getEmail":
-            print("[KlcKlaviyoFlutterPlugin] getEmail: Returning email")
             result(KlaviyoSDK().email)
         case "getPhoneNumber":
-            print("[KlcKlaviyoFlutterPlugin] getPhoneNumber: Returning phone number")
             result(KlaviyoSDK().phoneNumber)
         case "getExternalId":
-            print("[KlcKlaviyoFlutterPlugin] getExternalId: Returning external ID")
             result(KlaviyoSDK().externalId)
         case "registerForInAppForms":
             handleRegisterForInAppForms(result: result)
         case "unregisterFromInAppForms":
             handleUnregisterFromInAppForms(result: result)
         default:
-            print("[KlcKlaviyoFlutterPlugin] handle: Method not implemented - \(call.method)")
             result(FlutterMethodNotImplemented)
         }
     }
@@ -76,11 +68,9 @@ public class KlcKlaviyoFlutterPlugin: NSObject, FlutterPlugin, UNUserNotificatio
         print("[KlcKlaviyoFlutterPlugin] handleInitialize: Starting initialization")
         guard let args = call.arguments as? [String: Any],
               let apiKey = args["apiKey"] as? String else {
-            print("[KlcKlaviyoFlutterPlugin] handleInitialize: ERROR - API key is missing")
             result(FlutterError(code: "INVALID_ARGUMENTS", message: "API key is required", details: nil))
             return
         }
-        print("[KlcKlaviyoFlutterPlugin] handleInitialize: Initializing SDK with API key ")
         KlaviyoSDK().initialize(with: apiKey)
         print("[KlcKlaviyoFlutterPlugin] handleInitialize: SDK initialized successfully")
         result(nil)
@@ -92,11 +82,9 @@ public class KlcKlaviyoFlutterPlugin: NSObject, FlutterPlugin, UNUserNotificatio
         print("[KlcKlaviyoFlutterPlugin] handleSetEmail: Setting email")
         guard let args = call.arguments as? [String: Any],
               let email = args["email"] as? String else {
-            print("[KlcKlaviyoFlutterPlugin] handleSetEmail: ERROR - Email is missing")
             result(FlutterError(code: "INVALID_ARGUMENTS", message: "Email is required", details: nil))
             return
         }
-        print("[KlcKlaviyoFlutterPlugin] handleSetEmail: Email set to \(email)")
         KlaviyoSDK().set(email: email)
         reRegisterStoredPushTokenIfAvailable()
         print("[KlcKlaviyoFlutterPlugin] handleSetEmail: Email set successfully")
@@ -107,11 +95,9 @@ public class KlcKlaviyoFlutterPlugin: NSObject, FlutterPlugin, UNUserNotificatio
         print("[KlcKlaviyoFlutterPlugin] handleSetPhoneNumber: Setting phone number")
         guard let args = call.arguments as? [String: Any],
               let phoneNumber = args["phoneNumber"] as? String else {
-            print("[KlcKlaviyoFlutterPlugin] handleSetPhoneNumber: ERROR - Phone number is missing")
             result(FlutterError(code: "INVALID_ARGUMENTS", message: "Phone number is required", details: nil))
             return
         }
-        print("[KlcKlaviyoFlutterPlugin] handleSetPhoneNumber: Phone number set to \(phoneNumber)")
         KlaviyoSDK().set(phoneNumber: phoneNumber)
         reRegisterStoredPushTokenIfAvailable()
         print("[KlcKlaviyoFlutterPlugin] handleSetPhoneNumber: Phone number set successfully")
@@ -122,11 +108,9 @@ public class KlcKlaviyoFlutterPlugin: NSObject, FlutterPlugin, UNUserNotificatio
         print("[KlcKlaviyoFlutterPlugin] handleSetExternalId: Setting external ID")
         guard let args = call.arguments as? [String: Any],
               let externalId = args["externalId"] as? String else {
-            print("[KlcKlaviyoFlutterPlugin] handleSetExternalId: ERROR - External ID is missing")
             result(FlutterError(code: "INVALID_ARGUMENTS", message: "External ID is required", details: nil))
             return
         }
-        print("[KlcKlaviyoFlutterPlugin] handleSetExternalId: External ID set to \(externalId)")
         KlaviyoSDK().set(externalId: externalId)
         reRegisterStoredPushTokenIfAvailable()
         print("[KlcKlaviyoFlutterPlugin] handleSetExternalId: External ID set successfully")
@@ -136,14 +120,12 @@ public class KlcKlaviyoFlutterPlugin: NSObject, FlutterPlugin, UNUserNotificatio
     private func handleSetProfile(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         print("[KlcKlaviyoFlutterPlugin] handleSetProfile: Setting profile")
         guard let args = call.arguments as? [String: Any] else {
-            print("[KlcKlaviyoFlutterPlugin] handleSetProfile: ERROR - Profile data is missing")
             result(FlutterError(code: "INVALID_ARGUMENTS", message: "Profile data is required", details: nil))
             return
         }
 
         var location: Profile.Location?
         if let locationData = args["location"] as? [String: Any] {
-            print("[KlcKlaviyoFlutterPlugin] handleSetProfile: Location data included")
             location = Profile.Location(
                 address1: locationData["address1"] as? String,
                 address2: locationData["address2"] as? String,
@@ -170,7 +152,6 @@ public class KlcKlaviyoFlutterPlugin: NSObject, FlutterPlugin, UNUserNotificatio
             properties: args["properties"] as? [String: Any]
         )
         
-        print("[KlcKlaviyoFlutterPlugin] handleSetProfile: Setting profile with email=\(profile.email ?? "nil"), phone=\(profile.phoneNumber ?? "nil")")
         KlaviyoSDK().set(profile: profile)
         reRegisterStoredPushTokenIfAvailable()
         print("[KlcKlaviyoFlutterPlugin] handleSetProfile: Profile set successfully")
@@ -190,12 +171,10 @@ public class KlcKlaviyoFlutterPlugin: NSObject, FlutterPlugin, UNUserNotificatio
         print("[KlcKlaviyoFlutterPlugin] handleCreateEvent: Creating event")
         guard let args = call.arguments as? [String: Any],
               let eventName = args["name"] as? String else {
-            print("[KlcKlaviyoFlutterPlugin] handleCreateEvent: ERROR - Event name is missing")
             result(FlutterError(code: "INVALID_ARGUMENTS", message: "Event name is required", details: nil))
             return
         }
 
-        print("[KlcKlaviyoFlutterPlugin] handleCreateEvent: Event name = \(eventName)")
         let event = Event(
             name: .customEvent(eventName),
             properties: args["properties"] as? [String: Any],
@@ -213,25 +192,20 @@ public class KlcKlaviyoFlutterPlugin: NSObject, FlutterPlugin, UNUserNotificatio
     private func handleRequestPushPermission(result: @escaping FlutterResult) {
         print("[KlcKlaviyoFlutterPlugin] handleRequestPushPermission: Requesting push permission")
         #if targetEnvironment(simulator)
-        print("[KlcKlaviyoFlutterPlugin] handleRequestPushPermission: ERROR - Running on simulator")
         result(FlutterError(code: "SIMULATOR", message: "Push unavailable on Simulator", details: nil))
         return
         #else
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in
             if let error = error {
-                print("[KlcKlaviyoFlutterPlugin] handleRequestPushPermission: ERROR - \(error.localizedDescription)")
                 result(FlutterError(code: "PERMISSION_ERROR", message: error.localizedDescription, details: nil))
                 return
             }
             guard granted else {
-                print("[KlcKlaviyoFlutterPlugin] handleRequestPushPermission: Permission denied by user")
                 result(FlutterError(code: "PERMISSION_DENIED", message: "User denied permission", details: nil))
                 return
             }
-            print("[KlcKlaviyoFlutterPlugin] handleRequestPushPermission: Permission granted, registering for remote notifications")
             DispatchQueue.main.async {
                 UIApplication.shared.registerForRemoteNotifications()
-                print("[KlcKlaviyoFlutterPlugin] handleRequestPushPermission: Successfully registered for remote notifications")
                 result(nil)
             }
         }
@@ -241,7 +215,6 @@ public class KlcKlaviyoFlutterPlugin: NSObject, FlutterPlugin, UNUserNotificatio
     private func handleGetPushPermissionStatus(result: @escaping FlutterResult) {
         print("[KlcKlaviyoFlutterPlugin] handleGetPushPermissionStatus: Getting push permission status")
         #if targetEnvironment(simulator)
-        print("[KlcKlaviyoFlutterPlugin] handleGetPushPermissionStatus: Running on simulator")
         result("unavailable_simulator")
         #else
         UNUserNotificationCenter.current().getNotificationSettings { settings in
@@ -254,7 +227,6 @@ public class KlcKlaviyoFlutterPlugin: NSObject, FlutterPlugin, UNUserNotificatio
             case .ephemeral: status = "ephemeral"
             @unknown default: status = "unknown"
             }
-            print("[KlcKlaviyoFlutterPlugin] handleGetPushPermissionStatus: Status = \(status)")
             result(status)
         }
         #endif
@@ -264,17 +236,14 @@ public class KlcKlaviyoFlutterPlugin: NSObject, FlutterPlugin, UNUserNotificatio
         print("[KlcKlaviyoFlutterPlugin] handleSetPushToken: Setting push token")
         guard let args = call.arguments as? [String: Any],
               let tokenString = args["token"] as? String else {
-            print("[KlcKlaviyoFlutterPlugin] handleSetPushToken: ERROR - Push token is missing")
             result(FlutterError(code: "INVALID_ARGUMENTS", message: "Push token is required", details: nil))
             return
         }
         let trimmed = tokenString.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !trimmed.isEmpty else {
-            print("[KlcKlaviyoFlutterPlugin] handleSetPushToken: ERROR - Push token is invalid/empty")
             result(FlutterError(code: "INVALID_TOKEN", message: "Invalid push token", details: nil))
             return
         }
-        print("[KlcKlaviyoFlutterPlugin] handleSetPushToken: Token = \(trimmed)")
         KlaviyoSDK().set(pushToken: trimmed)
         UserDefaults.standard.set(trimmed, forKey: "klaviyo_push_token")
         print("[KlcKlaviyoFlutterPlugin] handleSetPushToken: Push token set successfully")
@@ -282,13 +251,10 @@ public class KlcKlaviyoFlutterPlugin: NSObject, FlutterPlugin, UNUserNotificatio
     }
     
     private func reRegisterStoredPushTokenIfAvailable() {
-        print("[KlcKlaviyoFlutterPlugin] reRegisterStoredPushTokenIfAvailable: Checking for stored push token")
         guard let token = UserDefaults.standard.string(forKey: "klaviyo_push_token"),
               !token.isEmpty else {
-            print("[KlcKlaviyoFlutterPlugin] reRegisterStoredPushTokenIfAvailable: No stored token found")
             return
         }
-        print("[KlcKlaviyoFlutterPlugin] reRegisterStoredPushTokenIfAvailable: Re-registering token = \(token)")
         KlaviyoSDK().set(pushToken: token)
         print("[KlcKlaviyoFlutterPlugin] reRegisterStoredPushTokenIfAvailable: Token re-registered successfully")
     }
@@ -296,7 +262,6 @@ public class KlcKlaviyoFlutterPlugin: NSObject, FlutterPlugin, UNUserNotificatio
     private func handleGetPushToken(result: @escaping FlutterResult) {
         print("[KlcKlaviyoFlutterPlugin] handleGetPushToken: Getting stored push token")
         let token = UserDefaults.standard.string(forKey: "klaviyo_push_token")
-        print("[KlcKlaviyoFlutterPlugin] handleGetPushToken: Token = \(token ?? "nil")")
         result(token)
     }
     
@@ -306,7 +271,6 @@ public class KlcKlaviyoFlutterPlugin: NSObject, FlutterPlugin, UNUserNotificatio
         print("[KlcKlaviyoFlutterPlugin] handleRegisterForInAppForms: Registering for in-app forms")
         Task { @MainActor in
             KlaviyoSDK().registerForInAppForms()
-            print("[KlcKlaviyoFlutterPlugin] handleRegisterForInAppForms: Registered successfully")
             result(nil)
         }
     }
@@ -315,7 +279,6 @@ public class KlcKlaviyoFlutterPlugin: NSObject, FlutterPlugin, UNUserNotificatio
         print("[KlcKlaviyoFlutterPlugin] handleUnregisterFromInAppForms: Unregistering from in-app forms")
         Task { @MainActor in
             KlaviyoSDK().unregisterFromInAppForms()
-            print("[KlcKlaviyoFlutterPlugin] handleUnregisterFromInAppForms: Unregistered successfully")
             result(nil)
         }
     }
@@ -326,7 +289,6 @@ public class KlcKlaviyoFlutterPlugin: NSObject, FlutterPlugin, UNUserNotificatio
                            didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         print("[KlcKlaviyoFlutterPlugin] didRegisterForRemoteNotificationsWithDeviceToken: Received device token")
         let tokenString = deviceToken.map { String(format: "%02.2hhx", $0) }.joined()
-        print("[KlcKlaviyoFlutterPlugin] didRegisterForRemoteNotificationsWithDeviceToken: Token = \(tokenString)")
         KlaviyoSDK().set(pushToken: deviceToken)
         UserDefaults.standard.set(tokenString, forKey: "klaviyo_push_token")
         channel?.invokeMethod("onPushTokenReceived", arguments: ["token": tokenString])
@@ -335,7 +297,6 @@ public class KlcKlaviyoFlutterPlugin: NSObject, FlutterPlugin, UNUserNotificatio
     
     public func application(_ application: UIApplication,
                            didFailToRegisterForRemoteNotificationsWithError error: Error) {
-        print("[KlcKlaviyoFlutterPlugin] didFailToRegisterForRemoteNotificationsWithError: ERROR - \(error.localizedDescription)")
         channel?.invokeMethod("onPushTokenRegistrationFailed", arguments: ["error": error.localizedDescription])
         print("[KlcKlaviyoFlutterPlugin] didFailToRegisterForRemoteNotificationsWithError: Error sent to Flutter")
     }
@@ -366,7 +327,6 @@ public class KlcKlaviyoFlutterPlugin: NSObject, FlutterPlugin, UNUserNotificatio
         withCompletionHandler completionHandler: @escaping () -> Void
     ) {
         let userInfo = response.notification.request.content.userInfo
-        print("[KlcKlaviyoFlutterPlugin] userNotificationCenter:didReceive: Notification tapped: \(userInfo)")
 
         // Handle Klaviyo push opened event
         KlaviyoSDK().handle(notificationResponse: response, withCompletionHandler: completionHandler)

@@ -21,3 +21,6 @@ Update: Readme.md
 
 ## 0.0.8
 Update: Readme.md
+
+## 0.1.0
+Update: Log and Readme

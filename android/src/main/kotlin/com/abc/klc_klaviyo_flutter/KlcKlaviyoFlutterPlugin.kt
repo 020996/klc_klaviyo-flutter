@@ -102,7 +102,6 @@ class KlcKlaviyoFlutterPlugin: FlutterPlugin, MethodCallHandler, ActivityAware {
         Log.d(TAG, "🚀 Initializing Klaviyo...")
         val apiKey = call.argument<String>("apiKey")
         if (apiKey.isNullOrEmpty()) {
-            Log.e(TAG, "❌ API key is empty")
             result.error("INVALID_ARGS", "API key required", null)
             return
         }
@@ -111,7 +110,6 @@ class KlcKlaviyoFlutterPlugin: FlutterPlugin, MethodCallHandler, ActivityAware {
             Log.d(TAG, "✅ Klaviyo initialized with API key: ${apiKey.take(6)}...")
             result.success(null)
         } catch (e: Exception) {
-            Log.e(TAG, "❌ Initialize error: ${e.message}")
             result.error("INIT_ERROR", e.message, null)
         }
     }
@@ -164,7 +162,6 @@ class KlcKlaviyoFlutterPlugin: FlutterPlugin, MethodCallHandler, ActivityAware {
             Log.d(TAG, "✅ Profile set successfully")
             result.success(null)
         } catch (e: Exception) {
-            Log.e(TAG, "❌ Set profile error: ${e.message}")
             result.error("SET_PROFILE_ERROR", e.message, null)
         }
     }
@@ -189,7 +186,6 @@ class KlcKlaviyoFlutterPlugin: FlutterPlugin, MethodCallHandler, ActivityAware {
             Log.d(TAG, "✅ Event created: $name")
             result.success(null)
         } catch (e: Exception) {
-            Log.e(TAG, "❌ Create event error: ${e.message}")
             result.error("CREATE_EVENT_ERROR", e.message, null)
         }
     }
@@ -229,7 +225,6 @@ class KlcKlaviyoFlutterPlugin: FlutterPlugin, MethodCallHandler, ActivityAware {
         FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->
             if (task.isSuccessful) {
                 val token = task.result
-                Log.d(TAG, "✅ FCM token received: ${token.take(20)}...")
                 Klaviyo.setPushToken(token)
                 channel.invokeMethod("onPushTokenReceived", mapOf("token" to token))
             } else {
@@ -253,7 +248,6 @@ class KlcKlaviyoFlutterPlugin: FlutterPlugin, MethodCallHandler, ActivityAware {
         try {
             Handler(Looper.getMainLooper()).post {
                 Klaviyo.registerForInAppForms()
-                Log.d(TAG, "✅ Registered for in-app forms successfully")
             }
             result.success(null)
         } catch (e: Exception) {
@@ -267,7 +261,6 @@ class KlcKlaviyoFlutterPlugin: FlutterPlugin, MethodCallHandler, ActivityAware {
         Log.d(TAG, "📝 Unregistering from in-app forms...")
         try {
             Klaviyo.unregisterFromInAppForms()
-            Log.d(TAG, "✅ Unregistered from in-app forms successfully")
             result.success(null)
         } catch (e: Exception) {
             Log.e(TAG, "❌ Unregister from in-app forms error: ${e.message}")
