@@ -14,8 +14,9 @@ push notifications, and user tracking.
   s.license          = { :file => '../LICENSE' }
   s.author           = { 'Your Name' => 'diepmac020996@gmail' }
   s.source           = { :path => '.' }
-  s.source_files     = 'Classes/**/*'
-  
+  s.source_files     = 'klc_klaviyo_flutter/Sources/klc_klaviyo_flutter/**/*.swift'
+  s.resource_bundles = { 'klc_klaviyo_flutter_privacy' => ['klc_klaviyo_flutter/Sources/klc_klaviyo_flutter/PrivacyInfo.xcprivacy'] }
+
   # Dependencies
   s.dependency 'Flutter'
   s.dependency 'KlaviyoSwift', '~> 5.1.1'
