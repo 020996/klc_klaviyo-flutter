@@ -24,3 +24,6 @@ Update: Readme.md
 
 ## 0.1.0
 Update: Log and Readme
+
+## 0.1.1
+Update: Swift Package Manager
